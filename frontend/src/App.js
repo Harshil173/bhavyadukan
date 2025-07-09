@@ -911,12 +911,7 @@ function ContactUsSection({ onSubmit }) {
           textAlign: "center",
         }}
       >
-        <p>
-          <span role="img" aria-label="Location pin">
-            📍
-          </span>{" "}
-          123 Forest Lane, Mushroom City
-        </p>
+        
         <p>
           <a
             href="mailto:contact@bhavyadukan.com"
