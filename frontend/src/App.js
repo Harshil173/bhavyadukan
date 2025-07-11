@@ -920,7 +920,7 @@ function ContactUsSection({ onSubmit }) {
             contact@bhavyadukan.com
           </a>
         </p>
-        <p>(123) 456-7890</p>
+        <p> +91 123-456-7890</p>
         <p style={{ marginTop: 16 }}>
           <a
             href="https://facebook.com"
@@ -964,7 +964,7 @@ function ContactUsSection({ onSubmit }) {
           userSelect: "none",
         }}
       >
-        © 2023 BhavyaDukan. All rights reserved.
+        © 2025 BhavyaDukan. All rights reserved.
       </p>
     </section>
   );
