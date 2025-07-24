@@ -1,4 +1,7 @@
 import { useState, useEffect } from "react";
+import Products from './Products.json';
+
+
 
 const COLOR_DARK_GREEN = "#264832";
 const COLOR_LIGHT_GREEN = "#c5d4ca";
@@ -6,12 +9,16 @@ const COLOR_BEIGE = "#ede9df";
 const COLOR_GOLD = "#b69868";
 const COLOR_TEXT = "#264832";
 const COLOR_WHITE = "#F6F4F0";
+
+
 const categoriesList = [
   { id: "all", name: "All" },
   { id: "truffles", name: "Truffles" },
   { id: "chanterelles", name: "Chanterelles" },
   { id: "morels", name: "Morels" },
 ];
+
+
 
 // Sample products data for demonstration
 
@@ -54,104 +61,7 @@ const categoriesList = [
 
 // Cart context to handle add to cart and cart state?
 // Since requirements are small, use lifting state to App level
-
-function Header({ cartCount, onMenuClick, onCartClick }) {
-  return (
-    <header
-      style={{
-        backgroundColor: COLOR_BEIGE,
-        borderBottom: `1px solid ${COLOR_LIGHT_GREEN}`,
-        position: "sticky",
-        top: 0,
-        zIndex: 10,
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "space-between",
-        fontFamily: "'Georgia', serif",
-      }}
-    >
-      <button
-        onClick={onMenuClick}
-        aria-label="Open menu"
-        style={{
-          fontSize: "1.5rem",
-          border: "none",
-          background: "none",
-          color: COLOR_DARK_GREEN,
-          cursor: "pointer",
-          fontWeight: 700,
-          width: 48,
-          height: 48,
-          lineHeight: 1,
-        }}
-      >
-        &#9776;
-      </button>
-      <div
-        style={{
-          fontWeight: "bold",
-          color: COLOR_DARK_GREEN,
-          fontSize: "1.3rem",
-          display: "flex",
-          alignItems: "center",
-          gap: 6,
-        }}
-      >
-        <img
-          src="/bhavyadukan.jpg" // Replace this path with your actual logo path
-          alt="Logo"
-          style={{
-            width: 200,
-            height: 150,
-            objectFit: "fill",
-            marginRight: 0,
-            fontSize:10
-          }}
-        />
-      </div>
-      <button
-        onClick={onCartClick}
-        aria-label="Open cart"
-        style={{
-          fontSize: "1.5rem",
-          border: "none",
-          background: "none",
-          color: COLOR_DARK_GREEN,
-          cursor: "pointer",
-          position: "relative",
-          width: 48,
-          height: 48,
-          right:10,
-          lineHeight: 1,
-        }}
-      >
-        🛒
-        {cartCount > 0 && (
-          <span
-            aria-label={`${cartCount} items in cart`}
-            style={{
-              position: "absolute",
-              top: 4,
-              right: 4,
-              backgroundColor: COLOR_GOLD,
-              color: COLOR_DARK_GREEN,
-              borderRadius: "50%",
-              padding: "0 6px",
-              fontSize: "0.75rem",
-              fontWeight: "bold",
-              lineHeight: 1,
-              userSelect: "none",
-            }}
-          >
-            {cartCount}
-          </span>
-        )}
-      </button>
-    </header>
-  );
-}
-
-function Navbar({ currentPage, onNavigate, cartCount }) {
+function Header({ currentPage, onNavigate, cartCount }) {
   const [menuOpen, setMenuOpen] = useState(false);
 
   const navItems = [
@@ -162,162 +72,260 @@ function Navbar({ currentPage, onNavigate, cartCount }) {
   ];
 
   return (
-    <nav
-  style={{
-    backgroundColor: COLOR_BEIGE,
-    borderBottom: `1px solid ${COLOR_LIGHT_GREEN}`,
-    padding: "0.5rem 1rem",
-    position: "sticky",
-    top: 0,
-    zIndex: 100,
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "space-between",
-    fontFamily: "'Georgia', serif",
-  }}
-> 
-  {/* Centered Menu */}
-  <div style={{ flex: 1, display: "flex", justifyContent: "center" }}>
-    <ul
+    <header
       style={{
-        listStyle: "none",
-        display: "flex",
-        gap: "5rem",
-        margin: 0,
-        padding: 0,
-      }}
-      className="nav-links"
-    >
-      {navItems.map((item) => (
-        <li key={item.id}>
-          <button
-            onClick={() => onNavigate(item.id)}
-            aria-current={currentPage === item.id ? "page" : undefined}
-            style={{
-              background: "none",
-              border: "none",
-              fontWeight: "600",
-              fontSize: "1rem",
-              cursor: "pointer",
-              color:
-                currentPage === item.id ? COLOR_GOLD : COLOR_DARK_GREEN,
-              borderBottom:
-                currentPage === item.id
-                  ? `2px solid ${COLOR_GOLD}`
-                  : "2px solid transparent",
-              paddingBottom: 2,
-            }}
-          >
-            {item.label}
-            {item.id === "cart" && cartCount > 0 && (
-              <span
-                style={{
-                  marginLeft: 6,
-                  backgroundColor: COLOR_GOLD,
-                  color: COLOR_DARK_GREEN,
-                  borderRadius: "50%",
-                  padding: "0 6px",
-                  fontSize: "0.75rem",
-                  fontWeight: "bold",
-                }}
-              >
-                {cartCount}
-              </span>
-            )}
-          </button>
-        </li>
-      ))}
-    </ul>
-  </div>
-
-  {/* Mobile Menu Toggle */}
-  <button
-    onClick={() => setMenuOpen(!menuOpen)}
-    aria-label="Toggle navigation menu"
-    style={{
-      background: "none",
-      border: "none",
-      fontSize: "1.5rem",
-      color: COLOR_DARK_GREEN,
-      cursor: "pointer",
-      display: "none",
-    }}
-    className="menu-toggle"
-  >
-    ☰
-  </button>
-
-  {/* Mobile Dropdown */}
-  {menuOpen && (
-    <div
-      style={{
-        position: "absolute",
-        top: "100%",
-        left: 0,
-        right: 0,
         backgroundColor: COLOR_BEIGE,
-        borderTop: `1px solid ${COLOR_LIGHT_GREEN}`,
-        display: "flex",
-        flexDirection: "column",
-        padding: "1rem",
-        zIndex: 99,
+        borderBottom: `1px solid ${COLOR_LIGHT_GREEN}`,
+        position: "sticky",
+        top: 0,
+        zIndex: 100,
+        fontFamily: "'Georgia', serif",
       }}
     >
-      {navItems.map((item) => (
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+          padding: "0.5rem 1rem",
+        }}
+      >
+        {/* Hamburger Toggle */}
         <button
-          key={item.id}
-          onClick={() => {
-            onNavigate(item.id);
-            setMenuOpen(false);
-          }}
+          onClick={() => setMenuOpen(!menuOpen)}
+          aria-label="Toggle menu"
           style={{
-            background: "none",
+            fontSize: "1.5rem",
             border: "none",
-            padding: "0.5rem 0",
-            fontSize: "1rem",
-            fontWeight: "600",
+            background: "none",
             color: COLOR_DARK_GREEN,
-            textAlign: "left",
+            cursor: "pointer",
+          }}
+          className="menu-toggle"
+        >
+          ☰
+        </button>
+
+        {/* Logo */}
+        <button
+          onClick={() => onNavigate("home")}
+          aria-label="Go to Home"
+          style={{
+            border: "none",
+            background: "none",
+            cursor: "pointer",
+            display: "flex",
+            justifyContent: "center",
+            flex: 1,
           }}
         >
-          {item.label}
-          {item.id === "cart" && cartCount > 0 && (
+          <img
+            src="/bhavyadukan.jpg"
+            alt="Logo"
+            style={{
+              width: "120px",
+              height: "auto",
+              objectFit: "contain",
+            }}
+          />
+        </button>
+
+
+        {/* Cart */}
+        <button
+          onClick={() => onNavigate("cart")}
+          aria-label="Open cart"
+          style={{
+            fontSize: "1.5rem",
+            border: "none",
+            background: "none",
+            color: COLOR_DARK_GREEN,
+            cursor: "pointer",
+            position: "relative",
+            width: 48,
+            height: 48,
+            lineHeight: 1,
+          }}
+        >
+          🛒
+          {cartCount > 0 && (
             <span
+              aria-label={`${cartCount} items in cart`}
               style={{
-                marginLeft: 6,
+                position: "absolute",
+                top: 4,
+                right: 4,
                 backgroundColor: COLOR_GOLD,
                 color: COLOR_DARK_GREEN,
                 borderRadius: "50%",
                 padding: "0 6px",
                 fontSize: "0.75rem",
                 fontWeight: "bold",
+                lineHeight: 1,
+                userSelect: "none",
               }}
             >
               {cartCount}
             </span>
           )}
         </button>
-      ))}
-    </div>
-  )}
+      </div>
 
-  {/* Responsive styles */}
-  <style>
-    {`
-      @media (max-width: 768px) {
-        .menu-toggle {
-          display: block;
-        }
-        .nav-links {
-          display: none;
-        }
-      }
-    `}
-  </style>
-</nav>
+      {/* Desktop Nav */}
+      <nav
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          borderTop: `1px solid ${COLOR_LIGHT_GREEN}`,
+          padding: "0.5rem 0",
+        }}
+      >
+        <ul
+          className="nav-links"
+          style={{
+            listStyle: "none",
+            gap: "3rem",
+            margin: 0,
+            padding: 0,
+          }}
+        >
+          {navItems.map((item) => (
+            <li key={item.id}>
+              <button
+                onClick={() => onNavigate(item.id)}
+                aria-current={currentPage === item.id ? "page" : undefined}
+                style={{
+                  background: "none",
+                  border: "none",
+                  fontWeight: "600",
+                  fontSize: "1rem",
+                  cursor: "pointer",
+                  color:
+                    currentPage === item.id
+                      ? COLOR_GOLD
+                      : COLOR_DARK_GREEN,
+                  borderBottom:
+                    currentPage === item.id
+                      ? `2px solid ${COLOR_GOLD}`
+                      : "2px solid transparent",
+                  paddingBottom: 2,
+                }}
+              >
+                {item.label}
+                {item.id === "cart" && cartCount > 0 && (
+                  <span
+                    style={{
+                      marginLeft: 6,
+                      backgroundColor: COLOR_GOLD,
+                      color: COLOR_DARK_GREEN,
+                      borderRadius: "50%",
+                      padding: "0 6px",
+                      fontSize: "0.75rem",
+                      fontWeight: "bold",
+                    }}
+                  >
+                    {cartCount}
+                  </span>
+                )}
+              </button>
+            </li>
+          ))}
+        </ul>
+      </nav>
 
+      {/* Mobile Dropdown: absolutely positioned BELOW header */}
+      {menuOpen && (
+        <div
+          style={{
+            position: "absolute",
+            top: "100%", // ✅ appear below the header
+            left: 0,
+            right: 0,
+            backgroundColor: COLOR_BEIGE,
+            borderTop: `1px solid ${COLOR_LIGHT_GREEN}`,
+            padding: "1rem",
+            animation: "slideDown 0.3s ease forwards",
+            zIndex: 99,
+          }}
+        >
+          {navItems.map((item) => (
+            <button
+              key={item.id}
+              onClick={() => {
+                onNavigate(item.id);
+                setMenuOpen(false);
+              }}
+              style={{
+                background: "none",
+                border: "none",
+                padding: "0.5rem 1rem",
+                fontSize: "1rem",
+                fontWeight: "600",
+                color: COLOR_DARK_GREEN,
+                textAlign: "left",
+                width: "100%",
+              }}
+            >
+              {item.label}
+              {item.id === "cart" && cartCount > 0 && (
+                <span
+                  style={{
+                    marginLeft: 6,
+                    backgroundColor: COLOR_GOLD,
+                    color: COLOR_DARK_GREEN,
+                    borderRadius: "50%",
+                    padding: "0 6px",
+                    fontSize: "0.75rem",
+                    fontWeight: "bold",
+                  }}
+                >
+                  {cartCount}
+                </span>
+              )}
+            </button>
+          ))}
+        </div>
+      )}
+
+      <style>
+        {`
+          @keyframes slideDown {
+            from {
+              opacity: 0;
+              transform: translateY(-10px);
+            }
+            to {
+              opacity: 1;
+              transform: translateY(0);
+            }
+          }
+
+          .nav-links {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+          }
+
+          .menu-toggle {
+            display: none;
+          }
+
+          @media (max-width: 768px) {
+            .menu-toggle {
+              display: block;
+            }
+            .nav-links {
+              display: none;
+            }
+          }
+        `}
+      </style>
+    </header>
   );
 }
+
+
 
 
 function HeroSection({ onShopNow }) {
@@ -369,8 +377,22 @@ function HeroSection({ onShopNow }) {
   );
 }
 
+function ProductCard({ product, onAddToCart, isFeatured, onSelectProduct }) {
+  const [selectedVariant, setSelectedVariant] = useState(
+    product.variants ? product.variants[0] : null
+  );
 
-function ProductCard({ product, onAddToCart, isFeatured }) {
+  // Calculate tag text if needed
+  let offerTag = null;
+  if (product.tag) {
+    if (product.tag === "percent" && product.mrp && product.price) {
+      const discount = Math.round(((product.mrp - product.price) / product.mrp) * 100);
+      offerTag = `${discount}% OFF`;
+    } else {
+      offerTag = product.tag;
+    }
+  }
+
   return (
     <article
       style={{
@@ -383,49 +405,102 @@ function ProductCard({ product, onAddToCart, isFeatured }) {
         boxShadow: isFeatured ? "0 0 5px rgba(0,0,0,0.1)" : "none",
         display: "flex",
         flexDirection: "column",
+        position: "relative",
+        overflow: "hidden",
         userSelect: "none",
       }}
-      aria-label={`Product: ${product.name}, price $${product.price}`}
+      aria-label={`Product: ${product.name}`}
     >
-      <img
-        src={product.image}
-        alt={product.name + " product image"}
-        style={{
-          width: "100%",
-          height: isFeatured ? 160 : 110,
-          borderRadius: "8px",
-          objectFit: "cover",
-          marginBottom: 8,
-          backgroundColor: COLOR_LIGHT_GREEN,
-          flexShrink: 0,
-        }}
-        onError={(e) => {
-          e.target.src =
-            "https://placehold.co/300x200?text=Image+not+available&bg=cccccc&fg=777777";
-        }}
-      />
-      <h3
-        style={{
-          fontWeight: "bold",
-          fontSize: isFeatured ? "1.1rem" : "0.95rem",
-          color: COLOR_DARK_GREEN,
-          marginBottom: 4,
-          flexGrow: 1,
-        }}
-      >
-        {product.name}
-      </h3>
-      {isFeatured && product.description && (
-        <p
+      {/* ✅ Red Rectangle Tag */}
+      {offerTag && (
+        <div
           style={{
-            fontSize: "0.8rem",
-            marginBottom: 6,
-            color: COLOR_DARK_GREEN + "cc",
+            position: "absolute",
+            top: 10,
+            right: 10,
+            backgroundColor: "red",
+            color: "white",
+            padding: "5px 8px",
+            fontSize: "10px",
+            fontWeight: "bold",
+            borderRadius: "4px",
+            zIndex: 2,
           }}
         >
-          {product.description}
-        </p>
+          {offerTag}
+        </div>
       )}
+
+      {/* ✅ Product Image */}
+      <div
+        onClick={() => {
+          if (onSelectProduct) onSelectProduct(product);
+        }}
+        style={{ cursor: "pointer" }}
+      >
+        <img
+          src={product.image}
+          alt={product.name + " product image"}
+          style={{
+            width: "100%",
+            height: isFeatured ? 160 : 110,
+            borderRadius: "8px",
+            objectFit: "cover",
+            marginBottom: 8,
+            backgroundColor: COLOR_LIGHT_GREEN,
+          }}
+          onError={(e) => {
+            e.target.src =
+              "https://placehold.co/300x200?text=Image+not+available&bg=cccccc&fg=777777";
+          }}
+        />
+
+        <h3
+          style={{
+            fontWeight: "bold",
+            fontSize: isFeatured ? "1.1rem" : "0.95rem",
+            color: COLOR_DARK_GREEN,
+            marginBottom: 4,
+          }}
+        >
+          {product.name}
+        </h3>
+
+        {isFeatured && product.description && (
+          <p
+            style={{
+              fontSize: "0.8rem",
+              marginBottom: 6,
+              color: COLOR_DARK_GREEN + "cc",
+            }}
+          >
+            {product.description}
+          </p>
+        )}
+      </div>
+
+      {product.variants && (
+        <select
+          value={selectedVariant}
+          onChange={(e) => setSelectedVariant(e.target.value)}
+          style={{
+            marginBottom: 8,
+            padding: "0.25rem",
+            borderRadius: 4,
+            border: `1px solid ${COLOR_LIGHT_GREEN}`,
+            backgroundColor: COLOR_BEIGE,
+            fontFamily: "'Georgia', serif",
+          }}
+        >
+          {product.variants.map((option) => (
+            <option key={option} value={option}>
+              {option}
+            </option>
+          ))}
+        </select>
+      )}
+
+      {/* ✅ Price Section */}
       <div
         style={{
           display: "flex",
@@ -435,9 +510,19 @@ function ProductCard({ product, onAddToCart, isFeatured }) {
           color: COLOR_DARK_GREEN,
         }}
       >
-        <span>${product.price.toFixed(2)}</span>
+        <div>
+          <span style={{ textDecoration: "line-through", marginRight: 8 }}>
+            ${product.mrp?.toFixed(2)}
+          </span>
+          <span>${product.price.toFixed(2)}</span>
+        </div>
         <button
-          onClick={() => onAddToCart(product)}
+          onClick={() =>
+            onAddToCart({
+              ...product,
+              selectedVariant: selectedVariant || null,
+            })
+          }
           aria-label={`Add ${product.name} to cart`}
           style={{
             border: "none",
@@ -459,6 +544,9 @@ function ProductCard({ product, onAddToCart, isFeatured }) {
     </article>
   );
 }
+
+
+
 
 function SeeAllProductsButton({ onClick }) {
   return (
@@ -488,79 +576,175 @@ function SeeAllProductsButton({ onClick }) {
 
 function CategoriesNav({ categories, selectedCategory, onSelectCategory }) {
   return (
-    <nav
+    <div
       aria-label="Product categories"
       style={{
-        margin: "2.5rem 0 1rem 0",
-        display: "flex",
-        justifyContent: "center",
-        gap: "1rem",
+        margin: "3rem auto",
+        display: "grid",
+        gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))",
+        gap: "1.5rem",
+        maxWidth: 960,
         userSelect: "none",
       }}
     >
       {categories.map((cat) => {
-        const isSelected = selectedCategory === cat.id;
+        const hasImage = !!cat.image;
+
         return (
-          <button
+          <div
             key={cat.id}
             onClick={() => onSelectCategory(cat.id)}
-            aria-current={isSelected ? "true" : undefined}
             style={{
-              background: "none",
-              border: "none",
-              borderBottom: isSelected
-                ? `3px solid ${COLOR_GOLD}`
-                : "3px solid transparent",
-              color: isSelected ? COLOR_GOLD : COLOR_DARK_GREEN,
-              fontWeight: "600",
+              backgroundColor: COLOR_WHITE,
+              borderRadius: 8,
+              padding: "1rem",
+              boxShadow: "0 1px 5px rgba(150,140,125,0.1)",
+              height: 220,
+              fontFamily: "'Georgia', serif",
+              position: "relative",
+              overflow: "hidden",
               cursor: "pointer",
-              fontSize: "1rem",
-              padding: "0 8px 6px 8px",
-              userSelect: "none",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              transition: "transform 0.2s ease",
             }}
+            onMouseEnter={(e) =>
+              (e.currentTarget.style.transform = "scale(1.02)")
+            }
+            onMouseLeave={(e) =>
+              (e.currentTarget.style.transform = "scale(1)")
+            }
           >
-            {cat.name}
-          </button>
+            {/* ✅ Background Image */}
+            {hasImage && (
+              <img
+                src={cat.image}
+                alt={cat.name}
+                style={{
+                  position: "absolute",
+                  top: 0,
+                  left: 0,
+                  width: "100%",
+                  height: "100%",
+                  objectFit: "cover",
+                  borderRadius: 6,
+                }}
+                onError={(e) => {
+                  e.target.style.display = "none";
+                }}
+              />
+            )}
+
+            {/* ✅ Text overlay */}
+            <h3
+              style={{
+                position: "relative",
+                zIndex: 1,
+                color: hasImage ? "white" : COLOR_DARK_GREEN,
+                fontWeight: "bold",
+                fontSize: "1.2rem",
+                textAlign: "center",
+                textShadow: hasImage
+                  ? "1px 1px 4px rgba(0,0,0,0.8)"
+                  : "none",
+                padding: "0 1rem",
+              }}
+            >
+              {cat.name}
+            </h3>
+          </div>
         );
       })}
-    </nav>
+    </div>
   );
 }
 
-function CategoryProductCard({ product, onAddToCart }) {
+
+
+function CategoryProductCard({ product, onAddToCart, onSelectProduct }) {
+  const [selectedVariant, setSelectedVariant] = useState(
+    product.variants && product.variants.length > 0 ? product.variants[0] : null
+  );
+
+  // Calculate tag text
+  let offerTag = null;
+  if (product.tag) {
+    if (product.tag === "percent" && product.mrp && product.price) {
+      const discount = Math.round(((product.mrp - product.price) / product.mrp) * 100);
+      offerTag = `${discount}% OFF`;
+    } else {
+      offerTag = product.tag;
+    }
+  }
+
   return (
     <article
       style={{
-    backgroundColor: COLOR_WHITE,
-    borderRadius: 8,
-    padding: "1rem",
-    boxShadow: "0 1px 5px rgba(150,140,125,0.1)",
-    width: "90%", // ✅ for grid layout
-    height: "90%",
-    fontFamily: "'Georgia', serif",
-    userSelect: "none",
-  }}
+        backgroundColor: COLOR_WHITE,
+        borderRadius: 8,
+        padding: "1rem",
+        boxShadow: "0 1px 5px rgba(150,140,125,0.1)",
+        width: "90%",
+        height: "90%",
+        fontFamily: "'Georgia', serif",
+        userSelect: "none",
+        position: "relative",
+      }}
       aria-label={`Category product: ${product.name}`}
     >
-      <img
-        src={product.image}
-        alt={product.name + " product image"}
-        style={{ width: "100%", borderRadius: 6, objectFit: "cover", height: 180 }}
-        onError={(e) => {
-          e.target.src =
-            "https://placehold.co/480x180?text=Image+not+available&bg=cccccc&fg=777777";
-        }}
-      />
-      <h3
-        style={{
-          marginTop: "0.75rem",
-          fontWeight: "bold",
-          fontSize: "1.1rem",
-          color: COLOR_DARK_GREEN,
-        }}
+      {/* ✅ Red Rectangle Tag */}
+      {offerTag && (
+        <div
+          style={{
+            position: "absolute",
+            top: 10,
+            right: 10,
+            backgroundColor: "red",
+            color: "white",
+            padding: "5px 8px",
+            fontSize: "10px",
+            fontWeight: "bold",
+            borderRadius: "4px",
+            zIndex: 2,
+          }}
+        >
+          {offerTag}
+        </div>
+      )}
+
+      {/* ✅ CLICKABLE IMAGE + NAME */}
+      <div
+        onClick={() => onSelectProduct && onSelectProduct(product)}
+        style={{ cursor: "pointer" }}
       >
-        {product.name}
-      </h3>
+        <img
+          src={product.image}
+          alt={product.name + " product image"}
+          style={{
+            width: "100%",
+            borderRadius: 6,
+            objectFit: "cover",
+            height: 180,
+          }}
+          onError={(e) => {
+            e.target.src =
+              "https://placehold.co/480x180?text=Image+not+available&bg=cccccc&fg=777777";
+          }}
+        />
+        <h3
+          style={{
+            marginTop: "0.75rem",
+            fontWeight: "bold",
+            fontSize: "1.1rem",
+            color: COLOR_DARK_GREEN,
+          }}
+        >
+          {product.name}
+        </h3>
+      </div>
+
+      {/* ✅ DESCRIPTION */}
       <p
         style={{
           fontSize: "0.85rem",
@@ -573,6 +757,29 @@ function CategoryProductCard({ product, onAddToCart }) {
           <em style={{ fontStyle: "italic" }}>Description missing</em>
         )}
       </p>
+
+      {/* ✅ DROPDOWN */}
+      {product.variants && product.variants.length > 0 && (
+        <select
+          value={selectedVariant}
+          onChange={(e) => setSelectedVariant(e.target.value)}
+          style={{
+            margin: "0.5rem 0",
+            padding: "0.4rem",
+            borderRadius: 4,
+            border: `1px solid ${COLOR_LIGHT_GREEN}`,
+            fontFamily: "'Georgia', serif",
+          }}
+        >
+          {product.variants.map((variant, i) => (
+            <option key={i} value={variant}>
+              {variant}
+            </option>
+          ))}
+        </select>
+      )}
+
+      {/* ✅ PRICE + ADD TO CART */}
       <div
         style={{
           display: "flex",
@@ -583,9 +790,19 @@ function CategoryProductCard({ product, onAddToCart }) {
           marginTop: 6,
         }}
       >
-        <span>${product.price.toFixed(2)}</span>
+        <div>
+          <span style={{ textDecoration: "line-through", marginRight: 8 }}>
+            ${product.mrp?.toFixed(2)}
+          </span>
+          <span>${product.price.toFixed(2)}</span>
+        </div>
         <button
-          onClick={() => onAddToCart(product)}
+          onClick={() =>
+            onAddToCart({
+              ...product,
+              selectedVariant: selectedVariant || null,
+            })
+          }
           style={{
             backgroundColor: COLOR_DARK_GREEN,
             color: COLOR_BEIGE,
@@ -604,6 +821,9 @@ function CategoryProductCard({ product, onAddToCart }) {
     </article>
   );
 }
+
+
+
 
 function OurStorySection() {
   return (
@@ -911,70 +1131,27 @@ function ContactUsSection({ onSubmit }) {
           textAlign: "center",
         }}
       >
-        
-        <p>
-          <a
-            href="mailto:contact@bhavyadukan.com"
-            style={{ color: COLOR_DARK_GREEN, textDecoration: "underline" }}
-          >
-            contact@bhavyadukan.com
-          </a>
-        </p>
-        <p> +91 123-456-7890</p>
-        <p style={{ marginTop: 16 }}>
-          <a
-            href="https://facebook.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="Facebook"
-            style={{
-              marginRight: 12,
-              color: COLOR_DARK_GREEN,
-              fontWeight: "bold",
-              textDecoration: "none",
-              fontSize: "1.25rem",
-              userSelect: "none",
-            }}
-          >
-            F
-          </a>
-          <a
-            href="https://twitter.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="Twitter"
-            style={{
-              color: COLOR_DARK_GREEN,
-              fontWeight: "bold",
-              textDecoration: "none",
-              fontSize: "1.25rem",
-              userSelect: "none",
-            }}
-          >
-            T
-          </a>
-        </p>
       </address>
-      <p
-        style={{
-          marginTop: 20,
-          fontSize: "0.8rem",
-          color: COLOR_DARK_GREEN + "cc",
-          textAlign: "center",
-          userSelect: "none",
-        }}
-      >
-        © 2025 BhavyaDukan. All rights reserved.
-      </p>
+      
     </section>
   );
 }
 
-function CategoryPage({ categoryId, onAddToCart, onBack, products }) {
+function CategoryPage({
+  categoryId,
+  categories, // ✅ add this
+  onAddToCart,
+  onBack,
+  products,
+  onSelectProduct,
+}) {
   let filtered = products;
   if (categoryId && categoryId !== "all") {
     filtered = products.filter((p) => p.category === categoryId);
   }
+
+  // ✅ Find the actual name
+  const categoryName = categories.find((c) => c.id === categoryId)?.name || "Products";
 
   return (
     <main
@@ -990,8 +1167,8 @@ function CategoryPage({ categoryId, onAddToCart, onBack, products }) {
         style={{
           marginBottom: "2rem",
           border: "none",
-          backgroundColor: "#FFD700",
-          color: "#064420",
+          backgroundColor: COLOR_DARK_GREEN,
+          color: COLOR_BEIGE,
           borderRadius: 20,
           padding: "0.5rem 1.2rem",
           cursor: "pointer",
@@ -1003,6 +1180,7 @@ function CategoryPage({ categoryId, onAddToCart, onBack, products }) {
       >
         &lt; Back
       </button>
+
       <h2
         style={{
           fontFamily: "'Georgia', serif",
@@ -1013,7 +1191,7 @@ function CategoryPage({ categoryId, onAddToCart, onBack, products }) {
           textTransform: "capitalize",
         }}
       >
-        {categoryId === "all" ? "All Products" : categoryId}
+        {categoryName}
       </h2>
 
       {filtered.length === 0 ? (
@@ -1027,7 +1205,12 @@ function CategoryPage({ categoryId, onAddToCart, onBack, products }) {
           }}
         >
           {filtered.map((p) => (
-            <CategoryProductCard key={p.id} product={p} onAddToCart={onAddToCart} />
+            <CategoryProductCard
+              key={p.id}
+              product={p}
+              onAddToCart={onAddToCart}
+              onSelectProduct={onSelectProduct}
+            />
           ))}
         </div>
       )}
@@ -1037,101 +1220,342 @@ function CategoryPage({ categoryId, onAddToCart, onBack, products }) {
 
 
 
-function CartPage({ cartItems, onBuyNow, onBack }) {
-  const total = cartItems.reduce((sum, item) => sum + item.price * item.qty, 0);
+function ProductDetailPage({ product, onAddToCart, onBack }) {
+  const [selectedVariant, setSelectedVariant] = useState(
+    product.variants && product.variants.length > 0 ? product.variants[0] : null
+  );
+
+  if (!product) {
+    return (
+      <main style={{ padding: "2rem", textAlign: "center" }}>
+        <h2>Product not found</h2>
+        <button
+          onClick={onBack}
+          style={{
+            marginTop: "1rem",
+            border: "1px solid",
+            borderRadius: 4,
+            padding: "0.5rem 1rem",
+            cursor: "pointer",
+            fontFamily: "'Georgia', serif",
+          }}
+        >
+          ← Back
+        </button>
+      </main>
+    );
+  }
 
   return (
     <main
       style={{
-        maxWidth: 600,
-        margin: "2rem auto 4rem",
+        flex: "1",
+        maxWidth: 960,
+        margin: "2rem auto",
         padding: "0 1rem",
-        userSelect: "none",
+        backgroundColor: COLOR_WHITE,
+        borderRadius: 8,
+        boxShadow: "0 1px 5px rgba(0,0,0,0.1)",
         fontFamily: "'Georgia', serif",
-        color: COLOR_DARK_GREEN,
       }}
-      aria-label="Cart page"
     >
       <button
-        style={{
-          marginBottom: "1.5rem",
-          border: "none",
-          backgroundColor: COLOR_GOLD,
-          color: COLOR_DARK_GREEN,
-          borderRadius: 20,
-          padding: "0.5rem 1.2rem",
-          cursor: "pointer",
-          fontWeight: "600",
-          userSelect: "none",
-        }}
         onClick={onBack}
-        aria-label="Back to homepage"
+        style={{
+          background: "transparent",
+          border: `1px solid ${COLOR_DARK_GREEN}`,
+          borderRadius: 4,
+          padding: "0.4rem 0.8rem",
+          cursor: "pointer",
+          marginBottom: "1rem",
+          color: COLOR_DARK_GREEN,
+        }}
       >
-        &lt; Back
+        ← Back to Products
       </button>
-      <h2 style={{ fontWeight: "bold", fontSize: "1.75rem" }}>Your Cart</h2>
-      {cartItems.length === 0 ? (
-        <p>Your cart is empty.</p>
-      ) : (
-        <>
-          <ul style={{ listStyle: "none", paddingLeft: 0 }}>
-            {cartItems.map((item) => (
-              <li
-                key={item.id}
-                style={{
-                  display: "flex",
-                  justifyContent: "space-between",
-                  padding: "0.75rem 0",
-                  borderBottom: `1px solid ${COLOR_LIGHT_GREEN}`,
-                }}
-              >
-                <div style={{ flex: 1 }}>
-                  <strong>{item.name}</strong>
-                  <div>
-                    Qty: {item.qty} × ${item.price.toFixed(2)}
-                  </div>
-                </div>
-                <div style={{ fontWeight: "600" }}>
-                  ${(item.price * item.qty).toFixed(2)}
-                </div>
-              </li>
+
+      <img
+        src={product.image}
+        alt={product.name}
+        style={{
+          width: "100%",
+          maxHeight: 400,
+          objectFit: "cover",
+          borderRadius: 8,
+          marginBottom: "1rem",
+          backgroundColor: COLOR_LIGHT_GREEN,
+        }}
+        onError={(e) => {
+          e.target.src =
+            "https://placehold.co/800x400?text=Image+not+available";
+        }}
+      />
+
+      <h1
+        style={{
+          fontSize: "2rem",
+          marginBottom: "0.5rem",
+          color: COLOR_DARK_GREEN,
+        }}
+      >
+        {product.name}
+      </h1>
+
+      <h2 style={{ color: COLOR_DARK_GREEN, marginBottom: "1rem" }}>
+        ${product.price.toFixed(2)}
+      </h2>
+
+      <p
+        style={{
+          lineHeight: 1.6,
+          fontSize: "1rem",
+          marginBottom: "1.5rem",
+          color: COLOR_DARK_GREEN + "cc",
+        }}
+      >
+        {product.description ||
+          "No description available for this product at the moment."}
+      </p>
+
+      {/* ✅ DROPDOWN if variants exist */}
+      {product.variants && product.variants.length > 0 && (
+        <div style={{ marginBottom: "1.5rem" }}>
+          <label htmlFor="variant" style={{ display: "block", marginBottom: 4 }}>
+            Choose a variant:
+          </label>
+          <select
+            id="variant"
+            value={selectedVariant}
+            onChange={(e) => setSelectedVariant(e.target.value)}
+            style={{
+              padding: "0.5rem",
+              borderRadius: 4,
+              border: `1px solid ${COLOR_DARK_GREEN}`,
+              fontFamily: "'Georgia', serif",
+            }}
+          >
+            {product.variants.map((variant, i) => (
+              <option key={i} value={variant}>
+                {variant}
+              </option>
             ))}
-          </ul>
-          <div
-            style={{
-              marginTop: 12,
-              fontWeight: "bold",
-              fontSize: "1.15rem",
-              textAlign: "right",
-            }}
-          >
-            Total: ${total.toFixed(2)}
-          </div>
-          <button
-            onClick={onBuyNow}
-            style={{
-              display: "block",
-              width: "100%",
-              marginTop: 18,
-              padding: "1rem",
-              backgroundColor: COLOR_DARK_GREEN,
-              color: COLOR_BEIGE,
-              border: "none",
-              borderRadius: 6,
-              cursor: "pointer",
-              fontWeight: "700",
-              fontSize: "1.2rem",
-              userSelect: "none",
-            }}
-            aria-label="Proceed to checkout"
-          >
-            Buy Now
-          </button>
-        </>
+          </select>
+        </div>
       )}
+
+      <button
+        onClick={() =>
+          onAddToCart({
+            ...product,
+            selectedVariant: selectedVariant || null,
+          })
+        }
+        style={{
+          backgroundColor: COLOR_DARK_GREEN,
+          color: COLOR_BEIGE,
+          border: "none",
+          borderRadius: 6,
+          padding: "0.8rem 1.5rem",
+          fontSize: "1rem",
+          fontWeight: "bold",
+          cursor: "pointer",
+        }}
+      >
+        + Add to Cart
+      </button>
     </main>
   );
 }
+
+
+function Footer() {
+  return (
+    <footer
+      style={{
+        backgroundColor: "#064420",
+        color: "#FFF8E7",
+        padding: "2rem 1rem",
+        fontFamily: "'Georgia', serif",
+        marginTop: "4rem",
+      }}
+    >
+      <div
+        style={{
+          maxWidth: 960,
+          margin: "0 auto",
+          display: "flex",
+          flexWrap: "wrap",
+          gap: "2rem",
+          justifyContent: "space-between",
+        }}
+      >
+        {/* Quick Links */}
+        <div style={{ flex: "1 1 180px", minWidth: "180px" }}>
+          <h4 style={{ marginBottom: "0.75rem", fontSize: "1.1rem" }}>
+            Quick Links
+          </h4>
+          <ul style={{ listStyle: "none", padding: 0, lineHeight: "1.8" }}>
+            <li><a href="#" style={{ color: "#FFF8E7", textDecoration: "none" }}>Home</a></li>
+            <li><a href="#" style={{ color: "#FFF8E7", textDecoration: "none" }}>Shop</a></li>
+            <li><a href="#" style={{ color: "#FFF8E7", textDecoration: "none" }}>Categories</a></li>
+            <li><a href="#" style={{ color: "#FFF8E7", textDecoration: "none" }}>Cart</a></li>
+            <li><a href="#" style={{ color: "#FFF8E7", textDecoration: "none" }}>Checkout</a></li>
+          </ul>
+        </div>
+
+        {/* Information */}
+        <div style={{ flex: "1 1 200px", minWidth: "200px" }}>
+          <h4 style={{ marginBottom: "0.75rem", fontSize: "1.1rem" }}>
+            Information
+          </h4>
+          <ul style={{ listStyle: "none", padding: 0, lineHeight: "1.8" }}>
+            <li><a href="#" style={{ color: "#FFF8E7", textDecoration: "none" }}>About Us</a></li>
+            <li><a href="#" style={{ color: "#FFF8E7", textDecoration: "none" }}>Contact Us</a></li>
+            <li><a href="#" style={{ color: "#FFF8E7", textDecoration: "none" }}>Privacy Policy</a></li>
+            <li><a href="#" style={{ color: "#FFF8E7", textDecoration: "none" }}>Terms & Conditions</a></li>
+            <li><a href="#" style={{ color: "#FFF8E7", textDecoration: "none" }}>FAQs</a></li>
+          </ul>
+        </div>
+
+        {/* Contact */}
+        <div style={{ flex: "1 1 180px", minWidth: "200px" }}>
+          <h4 style={{ marginBottom: "0.75rem", fontSize: "1.1rem" }}>
+            Contact Us
+          </h4>
+          <p style={{ margin: 0, lineHeight: "1.8" }}>
+            📍 123 Gourmet Street,<br />
+            Food City, FC 12345<br />
+            📞 +91 123-456-7890<br />
+            <a
+            href="mailto:contact@bhavyadukan.com"
+            style={{ color: "#FFF8E7", textDecoration: "underline" }}
+          >
+            ✉️contact@bhavyadukan.com</a>
+          </p>
+        </div>
+
+        {/* Social */}
+        <div style={{ flex: "1 1 180px", minWidth: "180px" }}>
+          <h4 style={{ marginBottom: "0.75rem", fontSize: "1.1rem" }}>
+            Follow Us
+          </h4>
+          <div style={{ display: "flex", gap: "1rem", fontSize: "1.5rem" }}>
+            <a href="#" aria-label="Facebook" style={{ color: "#FFF8E7" }}>🌐</a>
+            <a href="#" aria-label="Instagram" style={{ color: "#FFF8E7" }}>📸</a>
+            <a href="#" aria-label="Twitter" style={{ color: "#FFF8E7" }}>🐦</a>
+            <a href="#" aria-label="LinkedIn" style={{ color: "#FFF8E7" }}>💼</a>
+          </div>
+        </div>
+      </div>
+
+      <p
+        style={{
+          textAlign: "center",
+          marginTop: "2rem",
+          fontSize: "0.85rem",
+          color: "#FFF8E7aa",
+        }}
+      >
+        © {new Date().getFullYear()} BhavyaDukan. All rights reserved.
+
+      </p>
+    </footer>
+  );
+}
+
+
+function CartPage({ cartItems, onBuyNow, onBack }) {
+  return (
+    <main
+      style={{
+        maxWidth: 800,
+        margin: "2rem auto",
+        padding: "0 1rem",
+        fontFamily: "'Georgia', serif",
+      }}
+    >
+      <h2 style={{ fontSize: "1.5rem", marginBottom: "1rem", color: COLOR_DARK_GREEN }}>
+        Your Cart
+      </h2>
+
+      {cartItems.length === 0 ? (
+        <p>Your cart is empty.</p>
+      ) : (
+        <ul style={{ listStyle: "none", padding: 0 }}>
+          {cartItems.map((item) => (
+            <li
+              key={`${item.id}-${item.selectedVariant || "default"}`}
+              style={{
+                borderBottom: `1px solid ${COLOR_LIGHT_GREEN}`,
+                padding: "1rem 0",
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+              }}
+            >
+              <div>
+                <h3 style={{ margin: "0 0 4px", color: COLOR_DARK_GREEN }}>
+                  {item.name}
+                </h3>
+                {item.selectedVariant && (
+                  <p
+                    style={{
+                      margin: 0,
+                      fontSize: "0.9rem",
+                      color: COLOR_DARK_GREEN + "aa",
+                    }}
+                  >
+                    <strong>{item.selectedVariant}</strong>
+                  </p>
+                )}
+                <p style={{ margin: "4px 0 0" }}>
+                  Qty: {item.qty} × ${item.price.toFixed(2)}
+                </p>
+              </div>
+              <span style={{ fontWeight: "bold", color: COLOR_DARK_GREEN }}>
+                ${(item.qty * item.price).toFixed(2)}
+              </span>
+            </li>
+          ))}
+        </ul>
+      )}
+
+      <div style={{ marginTop: "2rem" }}>
+        <button
+          onClick={onBuyNow}
+          style={{
+            backgroundColor: COLOR_DARK_GREEN,
+            color: COLOR_BEIGE,
+            border: "none",
+            padding: "0.75rem 1.5rem",
+            fontSize: "1rem",
+            cursor: "pointer",
+            borderRadius: 4,
+          }}
+        >
+          Proceed to Checkout
+        </button>
+
+        <button
+          onClick={onBack}
+          style={{
+            marginLeft: "1rem",
+            background: "none",
+            border: `1px solid ${COLOR_DARK_GREEN}`,
+            color: COLOR_DARK_GREEN,
+            padding: "0.75rem 1.5rem",
+            fontSize: "1rem",
+            cursor: "pointer",
+            borderRadius: 4,
+          }}
+        >
+          Back
+        </button>
+      </div>
+    </main>
+  );
+}
+
 
 function CheckoutPage({ cartItems, onBack }) {
   const total = cartItems.reduce((sum, item) => sum + item.price * item.qty, 0);
@@ -1250,66 +1674,50 @@ function App() {
   const [page, setPage] = useState("home"); // home, category, cart, checkout
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [cart, setCart] = useState([]);
+  const [products, setProducts] = useState(Products);
+  const [selectedProduct, setSelectedProduct] = useState(null);
 
-  const staticProducts = [
-    {
-      id: 1,
-      name: "Soumya Foods- Hot &",
-      category: "truffles",
-      price: 45,
-      image: "https://m.media-amazon.com/images/I/714M-zoQeSL._SX679_.jpg",
-    },
-    {
-      id: 2,
-      name: "Black Truffle",
-      category: "truffles",
-      price: 120,
-      image: "https://placehold.co/300x200/pink/white?text=Black+Truffle",
-    },
-    {
-      id: 3,
-      name: "Mushroom Masala",
-      category: "morels",
-      price: 60,
-      image: "https://placehold.co/500x300/beige/5a4b41?text=Mushroom+Masala",
-      description: "A rich and earthy flavor perfect for gourmet dishes.",
-    },
-  ];
-
-  const [products, setProducts] = useState(staticProducts);
-
+  // ✅ Fetch Strapi
   useEffect(() => {
-
     fetch("http://localhost:1337/api/products?populate=*")
-      .then((res) => res.json())
+      .then((res) => {
+        if (!res.ok) throw new Error("Strapi offline");
+        return res.json();
+      })
       .then((data) => {
         const strapiProducts = data.data.map((item) => ({
           id: item.id,
           name: item.Name,
           price: item.Price,
           category: item.Category,
-          description: item.Description?.[0]?.children?.[0]?.text || "No description",
+          description:
+            item.Description?.[0]?.children?.[0]?.text || "No description",
           image: item.Image?.formats?.medium?.url
             ? `http://localhost:1337${item.Image.formats.medium.url}`
             : "https://placehold.co/300x200?text=No+Image",
+          variants: item.Variants || null,
         }));
 
-        // ✅ Append to existing products
-        setProducts((staticProducts) => [...staticProducts, ...strapiProducts]);
-        const merged = [...staticProducts, ...strapiProducts];
-        
-        console.log("hello",merged);
+        const merged = Products.map((jsonProd) => {
+          const match = strapiProducts.find((sp) => sp.id === jsonProd.id);
+          return match ? match : jsonProd;
+        });
 
+        strapiProducts.forEach((sp) => {
+          if (!merged.find((m) => m.id === sp.id)) {
+            merged.push(sp);
+          }
+        });
+
+        setProducts(merged);
       })
       .catch((err) => {
-        console.error("Error fetching products:", err);
+        console.warn("Strapi fetch failed. Using fallback JSON.", err);
+        setProducts(Products);
       });
   }, []);
 
-
-
-
-
+  // ✅ Cart functions
   function handleAddToCart(product) {
     setCart((curr) => {
       const existing = curr.find((item) => item.id === product.id);
@@ -1335,6 +1743,7 @@ function App() {
 
   function handleSelectCategory(catId) {
     setSelectedCategory(catId);
+    setPage("category");
   }
 
   function goToCart() {
@@ -1349,36 +1758,29 @@ function App() {
     setPage("home");
   }
 
-  function backToCategory() {
-    setPage("category");
-  }
-
   function backToCart() {
     setPage("cart");
   }
 
   return (
     <div
-    style={{
-    backgroundColor: COLOR_BEIGE,
-    minHeight: "100vh",
-    minWidth: "100vw",             // ✅ ensures full width on mobile
-    overflowX: "hidden",           // ✅ prevents layout-breaking horizontal scroll
-    color: COLOR_TEXT,
-    fontFamily: "'Georgia', serif",
-    scrollBehavior: "smooth",
-  }}
+      style={{
+        backgroundColor: COLOR_BEIGE,
+        minHeight: "100vh",
+        minWidth: "100vw",
+        overflowX: "hidden",
+        color: COLOR_TEXT,
+        fontFamily: "'Georgia', serif",
+        scrollBehavior: "smooth",
+      }}
     >
+      {/* ✅ USE NEW COMBINED HEADER */}
       <Header
-        cartCount={cart.reduce((a, i) => a + i.qty, 0)}
-        onMenuClick={() => alert("Menu functionality missing")}
-        onCartClick={goToCart}
-      />
-      <Navbar
         currentPage={page}
         onNavigate={setPage}
         cartCount={cart.reduce((a, i) => a + i.qty, 0)}
       />
+
       {page === "home" && (
         <>
           <HeroSection onShopNow={handleShopNow} />
@@ -1401,6 +1803,7 @@ function App() {
             >
               Featured Products
             </h2>
+
             <div
               style={{
                 display: "flex",
@@ -1415,9 +1818,12 @@ function App() {
                   product={product}
                   onAddToCart={handleAddToCart}
                   isFeatured
+                  onSelectProduct={(p) => {
+                    setSelectedProduct(p);
+                    setPage("productDetail");
+                  }}
                 />
               ))}
-              {/* If less than 2 products present, add placeholders */}
               {products.length < 2 &&
                 [...Array(2 - products.length)].map((_, i) => (
                   <div
@@ -1452,84 +1858,108 @@ function App() {
             />
 
             <div style={{ marginTop: "2rem" }}>
-            <h2
-              style={{
-                fontWeight: "600",
-                fontSize: "1.5rem",
-                marginBottom: "1rem",
-                fontFamily: "'Georgia', serif",
-                color: COLOR_DARK_GREEN,
-                userSelect: "none",
-              }}
-            >
-              {selectedCategory === "all" ? "All Products" : selectedCategory}
-            </h2>
-
-            {products.filter(
-              (p) =>
-                selectedCategory === "all" || p.category === selectedCategory
-            ).length === 0 ? (
-              <p>No products available in this category.</p>
-            ) : (
-              <div
+              <h2
                 style={{
-                  display: "flex",
-                  overflowX: "auto",
-                  gap: "1rem",
-                  paddingBottom: 12,
+                  fontWeight: "600",
+                  fontSize: "1.5rem",
+                  marginBottom: "1rem",
+                  fontFamily: "'Georgia', serif",
+                  color: COLOR_DARK_GREEN,
+                  userSelect: "none",
                 }}
-                aria-label="Category products horizontally scrollable"
               >
-                {products
-                  .filter(
-                    (p) =>
-                      selectedCategory === "all" ||
-                      p.category === selectedCategory
-                  )
-                  .map((product) => (
-                    <div key={product.id} style={{ minWidth: 280 }}>
-                      <CategoryProductCard
-                        product={product}
-                        onAddToCart={handleAddToCart}
-                      />
-                    </div>
-                  ))}
-              </div>
-            )}
-          </div>
+                {selectedCategory === "all"
+                  ? "All Products"
+                  : selectedCategory}
+              </h2>
+
+              {products.filter(
+                (p) =>
+                  selectedCategory === "all" ||
+                  p.category === selectedCategory
+              ).length === 0 ? (
+                <p>No products available in this category.</p>
+              ) : (
+                <div
+                  style={{
+                    display: "flex",
+                    overflowX: "auto",
+                    gap: "1rem",
+                    paddingBottom: 12,
+                  }}
+                  aria-label="Category products horizontally scrollable"
+                >
+                  {products
+                    .filter(
+                      (p) =>
+                        selectedCategory === "all" ||
+                        p.category === selectedCategory
+                    )
+                    .map((product) => (
+                      <div key={product.id} style={{ minWidth: 280 }}>
+                        <CategoryProductCard
+                          product={product}
+                          onAddToCart={handleAddToCart}
+                          onSelectProduct={(p) => {
+                            setSelectedProduct(p);
+                            setPage("productDetail");
+                          }}
+                        />
+                      </div>
+                    ))}
+                </div>
+              )}
+            </div>
           </main>
           <OurStorySection />
           <WhyMushroomsSection />
           <ContactUsSection
-            onSubmit={(data) => alert("Message sent:\n" + JSON.stringify(data, null, 2))}
+            onSubmit={(data) =>
+              alert("Message sent:\n" + JSON.stringify(data, null, 2))
+            }
           />
         </>
       )}
 
-      {page === "category" && (
-        <CategoryPage
-
-        
-          categoryId={"all"}
+      {page === "productDetail" && (
+        <ProductDetailPage
+          product={selectedProduct}
           onAddToCart={handleAddToCart}
           onBack={backToHome}
-          products={products} 
-        
         />
+      )}
 
-        
+      {page === "category" && (
+        <CategoryPage
+          categoryId={selectedCategory}
+          categories={categoriesList}
+          products={products}
+          onAddToCart={handleAddToCart}
+          onSelectProduct={(p) => {
+            setSelectedProduct(p);
+            setPage("productDetail");
+          }}
+          onBack={backToHome}
+        />
       )}
 
       {page === "cart" && (
-        <CartPage cartItems={cart} onBuyNow={handleBuyNow} onBack={backToHome} />
+        <CartPage
+          cartItems={cart}
+          onBuyNow={handleBuyNow}
+          onBack={backToHome}
+        />
       )}
 
       {page === "checkout" && (
         <CheckoutPage cartItems={cart} onBack={backToCart} />
       )}
+
+      <Footer />
     </div>
   );
 }
+
 
 
 

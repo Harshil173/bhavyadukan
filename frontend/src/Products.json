@@ -1,0 +1,32 @@
+[
+  {
+    "id": 1,
+    "name": "Soumya Foods- Hot &",
+    "category": "truffles",
+    "mrp": 450,
+    "price": 45,
+    "image": "https://m.media-amazon.com/images/I/714M-zoQeSL._SX679_.jpg",
+    "tag": null
+  },
+  {
+    "id": 2,
+    "name": "Black Truffle",
+    "category": "truffles",
+    "mrp": 1200,
+    "price": 120,
+    "image": "https://placehold.co/300x200/pink/white?text=Black+Truffle",
+    "tag": "RECOMMENDED"
+
+  },
+  {
+    "id": 3,
+    "name": "Mushroom Masala",
+    "category": "morels",
+    "mrp": 600,
+    "price": 60,
+    "image": "https://placehold.co/500x300/beige/5a4b41?text=Mushroom+Masala",
+    "description": "A rich and earthy flavor perfect for gourmet dishes.",
+    "variants": ["100g", "250g", "500g"],
+    "tag": "percent"
+  }
+]
