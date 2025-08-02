@@ -1400,21 +1400,7 @@ function Footer() {
           </ul>
         </div>
 
-        {/* Contact */}
-        <div style={{ flex: "1 1 180px", minWidth: "200px" }}>
-          <h4 style={{ marginBottom: "0.75rem", fontSize: "1.1rem" }}>
-            Contact Us
-          </h4>
-          <p style={{ margin: 0, lineHeight: "1.8" }}>
-          
-            📞 +91 123-456-7890<br />
-            <a
-            href="mailto:contact@bhavyadukan.com"
-            style={{ color: "#FFF8E7", textDecoration: "underline" }}
-          >
-            ✉️contact@bhavyadukan.com</a>
-          </p>
-        </div>
+        
 
         {/* Social */}
         <div style={{ flex: "1 1 180px", minWidth: "180px" }}>
