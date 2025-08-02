@@ -123,7 +123,7 @@ function Header({ currentPage, onNavigate, cartCount }) {
             src="/bhavyadukan.jpg"
             alt="Logo"
             style={{
-              width: "80px",
+              width: "40px",
               height: "auto",
               objectFit: "contain",
             }}
