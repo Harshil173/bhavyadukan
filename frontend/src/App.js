@@ -123,7 +123,7 @@ function Header({ currentPage, onNavigate, cartCount }) {
             src="/bhavyadukan.jpg"
             alt="Logo"
             style={{
-              width: "120px",
+              width: "80px",
               height: "auto",
               objectFit: "contain",
             }}
@@ -355,24 +355,7 @@ function HeroSection({ onShopNow }) {
       >
         Discover the Luxury of Nature
       </h1>
-      <button
-        onClick={onShopNow}
-        style={{
-          backgroundColor: COLOR_GOLD,
-          border: "none",
-          padding: "0.75rem 2rem",
-          borderRadius: "2rem",
-          fontWeight: "600",
-          fontSize: "1rem",
-          cursor: "pointer",
-          color: COLOR_DARK_GREEN,
-          boxShadow: "0 3px 6px rgba(0,0,0,0.1)",
-          userSelect: "none",
-        }}
-        aria-label="Shop Now button"
-      >
-        Shop Now
-      </button>
+      
     </section>
   );
 }
@@ -1423,8 +1406,7 @@ function Footer() {
             Contact Us
           </h4>
           <p style={{ margin: 0, lineHeight: "1.8" }}>
-            📍 123 Gourmet Street,<br />
-            Food City, FC 12345<br />
+          
             📞 +91 123-456-7890<br />
             <a
             href="mailto:contact@bhavyadukan.com"
